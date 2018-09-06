@@ -5,7 +5,7 @@ var aggregate = 'year',
 var CHART_DIV = aggregate + '_chart';
 var myPlot = document.getElementById(CHART_DIV);
 
-var csvFile = "/csv/social_time_chart.csv" + "?" + Math.floor(Date.now());
+var csvFile = "./csv/social_time_chart.csv" + "?" + Math.floor(Date.now());
 Plotly.d3.csv(csvFile, function(err, rows){
 
   var data = getTraces(rows);
