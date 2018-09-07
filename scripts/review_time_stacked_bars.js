@@ -11,8 +11,10 @@ Plotly.d3.csv(csvFile, function(err, rows){
   var data = getTraces(rows);
 
   var layout = {
-    title: 'Numero di Recensioni',
+    title: 'Numero di recensioni per anno',
     barmode: 'stack',
+    legend: {"orientation": "h"},
+    margin: custom_margin,
     xaxis: {
       autorange: true,
       tickmode: 'linear',
@@ -68,6 +70,8 @@ Plotly.d3.csv(csvFile, function(err, rows){
     var layout_update = {
       title: 'Numero recensioni per l\'anno ' + data.points[0].x + '',
       barmode: 'stack',
+      legend: {"orientation": "h"},
+      margin: custom_margin,
       xaxis: {
         tick0: min_tick0,
         dtick: tick_step
@@ -76,4 +80,11 @@ Plotly.d3.csv(csvFile, function(err, rows){
 
     Plotly.react(myPlot, data_update, layout_update)
   });
+
+  window.onresize = function() {
+    $('.chart').each( function(index,value) {
+      Plotly.Plots.resize(value);
+    });
+  };
+
 })

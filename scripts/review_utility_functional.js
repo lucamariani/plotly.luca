@@ -1,9 +1,16 @@
+var allSocialsEntry, allSocials, socials_array;
+
+
+/*** LAYOUT SETTINGS ***/
 /* define social colors */
 var social_colors = {
   Facebook: '#4867AA',
   Tripadvisor: '#8DC45F',
   Google: '#EA4235'
 }
+
+/* define custom margins */
+var custom_margin = { l: 30, r: 30, b: 100, t: 100, pad: 4 }
 
 /* Get reviews for particular social */
 function getSocialData(data_array, social) {
@@ -25,19 +32,31 @@ function getYearData(data_array, year) {
   return data_array.filter(filterYear);
 }
 
-var getTraces = function ( rows ) {
+/*
+ * Get reviews for particular month
+ * x es. get Juanuary's reviews for all years
+ */
+function getMonthData(data_array, month) {
+  // define filter callback
+  function filterMonth(value) {
+    return value.rev_date.indexOf('-' + month + '-') > -1;
+  }
+  // apply filter on data array
+  return data_array.filter(filterMonth);
+}
 
+var getSocialArrays = function ( rows ) {
   /**
    get all the values in column "Source":
     allSocialsEntry = ["Facebook","Facebook","Tripadvisor","Facebook","Google",...]
    **/
-  var allSocialsEntry = rows.map(row => row.Source);
+  allSocialsEntry = rows.map(row => row.Source);
 
   /**
    remove duplicates from allSocialsEntry
     allSocials = ["Facebook","Tripadvisor","Google"]
    **/
-  var allSocials = allSocialsEntry.reduce( function(acc,curr) {
+  allSocials = allSocialsEntry.reduce( function(acc,curr) {
      if ( ! acc.includes(curr) ) acc.push(curr);
      return acc;
    }, []);
@@ -53,9 +72,17 @@ var getTraces = function ( rows ) {
       socials_array[2]: getSocialData(rows,'Google') //google reviews array
       ...
    **/
-  var socials_array = allSocials.map( social => getSocialData(rows,social));
+  socials_array = allSocials.map( social => getSocialData(rows,social));
   console.log('socials_array');
   console.log(socials_array);
+}
+
+/**
+ * Prepare data array for stacked bar chart
+**/
+var getTraces = function ( rows ) {
+
+  getSocialArrays(rows);
 
   /**
    for each singles social data gets the reviews Date array:
