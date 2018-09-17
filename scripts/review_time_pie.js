@@ -8,7 +8,7 @@ Plotly.d3.csv(csvFile, function(err, rows) {
   if ( ! socials_array )
     getSocialArrays( rows );
 
-  //getSocialArrays( getMonthData(rows,'01') );  
+  //getSocialArrays( getMonthData(rows,'01') );
 
   /* associate colors */
   var piecolors = allSocials.map( social => social_colors[social] );
@@ -23,7 +23,7 @@ Plotly.d3.csv(csvFile, function(err, rows) {
   }]
 
   var layout = {
-    title: 'Numero di recensioni per sorgente',
+    title: 'Percentuale di recensioni per sorgente',
     barmode: 'stack',
     legend: {"orientation": "h"},
     margin: custom_margin

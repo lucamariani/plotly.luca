@@ -1,6 +1,5 @@
 var allSocialsEntry, allSocials, socials_array;
 
-
 /*** LAYOUT SETTINGS ***/
 /* define social colors */
 var social_colors = {
